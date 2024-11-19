@@ -17,11 +17,6 @@ upload.addEventListener('change', (event) => {
             canvas.width = img.width;
             canvas.height = img.height;
             ctx.drawImage(img, 0, 0);
-            console.log("Immagine caricata");
-    
-    // ... (resto del codice per la generazione della sagoma)
-};
-
 
             // Genera la sagoma (soglia di bianco/nero)
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -53,9 +48,6 @@ download.addEventListener('click', () => {
 
 
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 
 
 
