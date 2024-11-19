@@ -12,6 +12,9 @@ upload.addEventListener('change', (event) => {
     if (file) {
         const reader = new FileReader();
         
+        // Messaggio di caricamento
+        sagomaSection.innerHTML = 'Caricamento dell\'immagine...';
+        
         // Quando il file è stato letto
         reader.onload = () => {
             const img = new Image();
@@ -19,8 +22,9 @@ upload.addEventListener('change', (event) => {
 
             img.onload = () => {
                 // Quando l'immagine è pronta, la disegniamo nel canvas
-                canvas.width = img.width;
-                canvas.height = img.height;
+                sagomaSection.innerHTML = ''; // Rimuovi messaggio di caricamento
+                canvas.width = Math.min(img.width, 400);  // Limita la larghezza a 400px
+                canvas.height = Math.min(img.height, 400);  // Limita l'altezza a 400px
                 ctx.clearRect(0, 0, canvas.width, canvas.height); // Pulisce il canvas
                 ctx.drawImage(img, 0, 0); // Disegna l'immagine
 
@@ -29,17 +33,17 @@ upload.addEventListener('change', (event) => {
             };
 
             img.onerror = () => {
-                console.error('Errore nel caricare l\'immagine');
+                alert('Errore nel caricare l\'immagine');
             };
         };
 
         reader.onerror = () => {
-            console.error('Errore nella lettura del file');
+            alert('Errore nella lettura del file. Assicurati che sia un\'immagine.');
         };
 
         reader.readAsDataURL(file); // Legge il file come URL di dati
     } else {
-        console.error('Nessun file selezionato');
+        alert('Nessun file selezionato');
     }
 });
 
@@ -60,7 +64,7 @@ createSilhouette.addEventListener('click', () => {
 // Gestione del download della sagoma
 download.addEventListener('click', () => {
     const link = document.createElement('a');
-    link.download = 'sagoma.png';
-    link.href = canvas.toDataURL(); // Crea l'immagine da scaricare
+    link.href = canvas.toDataURL();
+    link.target = '_blank'; // Apre l'immagine in una nuova finestra per il download
     link.click(); // Simula un clic per scaricare l'immagine
 });
