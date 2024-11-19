@@ -6,30 +6,36 @@ const download = document.getElementById('download');
 // Gestione del caricamento dell'immagine
 upload.addEventListener('change', (event) => {
     const file = event.target.files[0];
-    const reader = new FileReader();
+    
+    if (file) {
+        const reader = new FileReader();
 
-    reader.onload = () => {
-        const img = new Image();
-        img.src = reader.result;
+        reader.onload = () => {
+            const img = new Image();
+            img.src = reader.result;
 
-        img.onload = () => {
-            // Adatta l'immagine al canvas
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0);
+            img.onload = () => {
+                // Quando l'immagine è caricata, disegniamola nel canvas
+                console.log('Immagine caricata e pronta per essere disegnata');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Pulisce il canvas
+                ctx.drawImage(img, 0, 0); // Disegna l'immagine sul canvas
+            };
 
-            // Genera la sagoma (soglia di bianco/nero)
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            const data = imageData.data;
-            for (let i = 0; i < data.length; i += 4) {
-                const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
-                const value = avg > 128 ? 255 : 0; // Soglia
-                data[i] = data[i + 1] = data[i + 2] = value; // Bianco o nero
-            }
-            ctx.putImageData(imageData, 0, 0);
+            img.onerror = () => {
+                console.error('Errore nel caricare l\'immagine');
+            };
         };
-    };
-    reader.readAsDataURL(file);
+
+        reader.onerror = () => {
+            console.error('Errore nella lettura del file');
+        };
+
+        reader.readAsDataURL(file); // Legge il file come URL
+    } else {
+        console.error('Nessun file selezionato');
+    }
 });
 
 // Gestione del download della sagoma
@@ -39,10 +45,6 @@ download.addEventListener('click', () => {
     link.href = canvas.toDataURL();
     link.click();
 });
-
-
-
-
 
 
 
