@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generatore di Silhouette</title>
+    <title>Generatore di Sagome</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -32,16 +32,25 @@
         input[type="file"] {
             margin-top: 20px;
         }
+        #sagomaSection {
+            display: none;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
-    <h1>Crea la tua Sagoma in bianco e nero</h1>
-    <p>Carica un'immagine!</p>
+    <h1>Generatore di Sagome</h1>
+    <p>Carica un'immagine per generare la sua sagoma!</p>
     <input type="file" id="upload" accept="image/*" class="button">
-    <br>
-    <canvas id="canvas" width="400" height="400"></canvas>
-    <br>
-    <button id="download" class="button">Scarica Sagoma</button>
+    
+    <!-- Sezione per la sagoma -->
+    <div id="sagomaSection">
+        <canvas id="canvas" width="400" height="400"></canvas>
+        <br>
+        <button id="createSilhouette" class="button">Crea Silhouette</button>
+        <br>
+        <button id="download" class="button">Scarica Sagoma</button>
+    </div>
 
     <script src="script.js"></script>
 </body>
