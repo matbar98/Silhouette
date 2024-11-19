@@ -17,6 +17,11 @@ upload.addEventListener('change', (event) => {
             canvas.width = img.width;
             canvas.height = img.height;
             ctx.drawImage(img, 0, 0);
+            console.log("Immagine caricata");
+    
+    // ... (resto del codice per la generazione della sagoma)
+};
+
 
             // Genera la sagoma (soglia di bianco/nero)
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
